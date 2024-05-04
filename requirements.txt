@@ -1,0 +1,13 @@
+openai
+pandas
+numpy
+scipy
+sklearn
+networkx
+langchain
+torch
+dgl
+transformers
+python-igraph
+matplotlib
+mpmath
