@@ -19,23 +19,18 @@ client = OpenAI()
 node = pd.read_csv("updated_disease_descriptions.csv")
 
 output_templates = {
-    'zero_shot': "Is there a potential link between {src_name} and {dst_name}? {src_name} is {src_dec}, {dst_name} is {dst_dec}. Evaluate and respond with '1' for a strong link and '0' for a weak or no link. Do Not provide your reasoning",
-    'few_shot': ("Example 1: Diseases with similar profiles like {train_src} and {train_dst} show these patterns: {example1_analysis}. "
-                 "Example 2: Contrastingly, diseases like {example2_src} and {example2_dst} show these different patterns: {example2_analysis}. "
-                 "Now, analyze the relationship between {src_name} and {dst_name} based on the given metrics."
-                 "Evaluate and respond with '1' for a strong link and '0' for a weak or no link. Do Not provide your reasoning"),
-    # For example: There are links in the following dieases: Node ID: 765, Disease: Genital Neoplasms, Female has relatiobship with Node ID: 845, Disease: Female Urogenital Diseases; Node ID: 717, Disease: Urinary Bladder Neoplasms has relatiobship with Node ID: 1230, Disease: Situs Inversus
-    'chain_of_thought': ("Step 1: Evaluate the number of common neighbors ({common_count}) between {src_name} and {dst_name}. "
-                         "Step 2: Assess the impact of their degrees ({src_degree} and {dst_degree}). "
-                         "Step 3: Consider the presence of a direct path ({path_exists}) and the shortest path length ({shortest_path}). "
-                         "Conclusion: Based on these analyses, the potential relationship between {src_name} and {dst_name} is ..."
-                         "Evaluate and respond with '1' for a strong link and '0' for a weak or no link. Do Not provide your reasoning"),
-    'full_graph_analysis': ("Link analysis between {src_name} ({src_desc}) and {dst_name} ({dst_desc}): "
-                            "Common Neighbors ({common_count}): {common_neighbors}; "
-                            "{src_name} has {src_degree} outgoing connections, while {dst_name} has {dst_degree} outgoing connections. "
-                            "Direct path? {path_exists}. Shortest path length: {shortest_path}. "
-                            "Evaluate and respond with '1' for a strong link and '0' for a weak or no link. Do Not provide your reasoning")
+    'zero_shot': "Is there a potential relationship between {src_name} and {dst_name}? {src_name} is {src_dec}, {dst_name} is {dst_dec}. Evaluate and respond with '1' for a strong link and '0' for a weak or no link. Do Not provide your reasoning.",
+    'few_shot': ("For example: There are links in the following diseases: Node ID: {train_src_id}, Disease: {train_src} has relationship with Node ID: {train_dst_id}, Disease: {train_dst}. "
+                 "Is there a potential relationship between {src_name} and {dst_name}? {src_name} is {src_dec}, {dst_name} is {dst_dec}. Evaluate and respond with '1' for a strong link and '0' for a weak or no link. Do Not provide your reasoning."),
+    'chain_of_thought': ("Step-by-step, analyze whether there is a potential relationship between {src_name} and {dst_name}. "
+                         "That indicates one might lead to or be associated with the other. "
+                         "Evaluate and respond with '1' for a strong link and '0' for a weak or no link. Do Not provide your reasoning."),
+    'full_graph_analysis': ("In a disease network, Disease {src_name} has {src_degree} connections, Disease {dst_name} has {dst_degree} connections. "
+                            "They share {common_count} common diseases. Is there a potential relationship between {src_name} and {dst_name}? "
+                            "That indicates one might lead to or be associated with the other. "
+                            "Evaluate and respond with '1' for a strong link and '0' for a weak or no link. Do Not provide your reasoning.")
 }
+
 
 
 def generate_description(graph, src, dst, df, output_type='zero_shot'):
