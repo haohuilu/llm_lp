@@ -45,31 +45,6 @@ The project introduces ComLLM, a novel framework that leverages LLMs with graph 
 3. Download the datasets:
    - The Human Disease Network (HDN) and Disease-Symptoms Network (DSN) datasets are required for training. Instructions for obtaining them can be found in the `data/` directory.
 
-## Usage
-
-### 1. Data Preprocessing
-Prepare the dataset using the preprocessing script:
-```bash
-python preprocess_data.py --input_path data/raw/ --output_path data/processed/
-```
-
-### 2. Training
-To train ComLLM with different LLMs, run:
-```bash
-python train.py --model_name gpt-4 --dataset_path data/processed/ --output_path results/
-```
-
-### 3. Inference
-For making predictions on a test dataset:
-```bash
-python inference.py --model_name gpt-4 --input_path data/test/ --output_path predictions/
-```
-
-### 4. Evaluation
-Evaluate the model's performance using:
-```bash
-python evaluate.py --predictions_path predictions/ --ground_truth data/ground_truth/
-```
 
 ## Experiments
 
