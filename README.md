@@ -61,8 +61,6 @@ Our model, ComLLM, demonstrated significant improvements in predicting disease c
 - Achieved an average AUC improvement of 10.70% over baseline models in the Human Disease Network.
 - Achieved an average AUC improvement of 6.07% in the Disease-Symptoms Network.
 
-For more detailed results, refer to the `results/` directory.
-
 ## Citation
 
 If you find this code helpful in your research, please cite our paper:
