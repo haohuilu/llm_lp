@@ -52,8 +52,6 @@ We conducted experiments on two main datasets:
 - **Human Disease Network (HDN)**
 - **Disease-Symptoms Network (DSN)**
 
-### Reproducing Experiments
-You can reproduce the experiments using the Jupyter notebooks provided in the `notebooks/` directory.
 
 ## Results
 
